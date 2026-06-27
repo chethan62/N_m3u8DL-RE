@@ -275,4 +275,8 @@ internal class MyOption
     /// See: <see cref="CommandInvoker.LiveFixVttByAudio"/>.
     /// </summary>
     public bool LiveFixVttByAudio { get; set; }
+    /// <summary>
+    /// See: <see cref="CommandInvoker.ProgressFormat"/>.
+    /// </summary>
+    public string ProgressFormat { get; set; } = "spectre";
 }

@@ -13,6 +13,8 @@
     <Nullable>enable</Nullable>
     <Version>0.5.1</Version>
     <Platforms>AnyCPU;x64</Platforms>
+    <!-- ReadyToRun for faster startup (cold .NET launch is ~300ms slower without this) -->
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <ItemGroup>

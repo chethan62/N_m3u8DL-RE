@@ -354,6 +354,12 @@ internal static partial class CommandInvoker
     private static string? ParseSaveName(ArgumentResult result)
     {
         var input = result.Tokens[0].Value;
+        // Security: block path traversal attempts
+        if (input.Contains("..") || input.Contains('/') || input.Contains('\\'))
+        {
+            result.AddError("Save name must not contain path separators or '..'");
+            return null;
+        }
         var newName = OtherUtil.GetValidFileName(input);
         if (string.IsNullOrEmpty(newName))
         {
@@ -615,6 +621,7 @@ internal static partial class CommandInvoker
             Input = result.GetRequiredValue(Input),
             ForceAnsiConsole = result.GetValue(ForceAnsiConsole),
             NoAnsiColor = result.GetValue(NoAnsiColor),
+            ProgressFormat = result.GetValue(ProgressFormat),
             LogLevel = result.GetValue(LogLevel),
             AutoSelect = result.GetValue(AutoSelect),
             DisableUpdateCheck = result.GetValue(DisableUpdateCheck),
@@ -725,7 +732,7 @@ internal static partial class CommandInvoker
 
         var rootCommand = new RootCommand(VERSION_INFO)
         {
-            Input, TmpDir, SaveDir, SaveName, SavePattern, LogFilePath, BaseUrl, ThreadCount, DownloadRetryCount, HttpRequestTimeout, ForceAnsiConsole, NoAnsiColor,AutoSelect, SkipMerge, SkipDownload, CheckSegmentsCount,
+            Input, TmpDir, SaveDir, SaveName, SavePattern, LogFilePath, BaseUrl, ThreadCount, DownloadRetryCount, HttpRequestTimeout, ForceAnsiConsole, NoAnsiColor, ProgressFormat, AutoSelect, SkipMerge, SkipDownload, CheckSegmentsCount,
             BinaryMerge, UseFFmpegConcatDemuxer, DelAfterDone, NoDateInfo, NoLog, WriteMetaJson, AppendUrlParams, ConcurrentDownload, Headers, SubOnly, SubtitleFormat, AutoSubtitleFix,
             FFmpegBinaryPath,
             LogLevel, UILanguage, UrlProcessorArgs, Keys, KeyTextFile, DecryptionEngine, DecryptionBinaryPath, UseShakaPackager, MP4RealTimeDecryption,
