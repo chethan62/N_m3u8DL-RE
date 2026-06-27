@@ -63,6 +63,7 @@ internal static partial class CommandInvoker
     private static readonly Option<DecryptEngine> DecryptionEngine = new ("--decryption-engine") { Description = ResString.cmd_decryptionEngine, DefaultValueFactory = _ => DecryptEngine.MP4DECRYPT };
     private static readonly Option<bool> ForceAnsiConsole = new("--force-ansi-console") { Description = ResString.cmd_forceAnsiConsole };
     private static readonly Option<bool> NoAnsiColor = new("--no-ansi-color") { Description = ResString.cmd_noAnsiColor };
+    private static readonly Option<string> ProgressFormat = new("--progress-format") { Description = "Progress output format: spectre (default, TUI) or plain (machine-parseable percentages)", DefaultValueFactory = _ => "spectre" };
     private static readonly Option<string?> DecryptionBinaryPath = new("--decryption-binary-path") { HelpName = "PATH", Description = ResString.cmd_decryptionBinaryPath };
     private static readonly Option<string?> FFmpegBinaryPath = new("--ffmpeg-binary-path") { HelpName = "PATH", Description = ResString.cmd_ffmpegBinaryPath };
     private static readonly Option<string?> BaseUrl = new("--base-url") { Description = ResString.cmd_baseUrl };
